@@ -4,7 +4,7 @@ This repository contains my c implementation for [Crenshaw's compiler tutorial](
 
 ## TODO
 
-- [ ] Chapter 1
+- [x] Chapter 1
 - [ ] Chapter 2
 - [ ] Chapter 3
 - [ ] Chapter 4
