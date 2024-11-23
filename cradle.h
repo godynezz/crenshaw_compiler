@@ -7,19 +7,39 @@
 #define TAB '\t'
 #define TRUE 1
 #define FALSE 0
-#define UPCASE(C) (0xDF & (C))
+#define UPCASE(C) (0xDF & C)  // clears the 6th bit
 #define BUFFER_SIZE 1024
 
 char look;
 char output_buffer[BUFFER_SIZE];
 
-void getChar(void) {
-    look = getchar();
-}
+// DEFINITION
+void getChar(void);
+void Error(char *error);
+void Abort(char *error);
+void Expected(char *expected);
+void Match(char x);
+int isAlpha(char x);
+int isDigit(char x);
+char getName(void);
+char getNum(void);
+void Emit(char *str);
+void EmitLn(char *str);
+void Init(void);
 
-void Error(char *error) {
-    printf("\nError: %s.\n", error);
-}
+void Expression(void);
+void Factor(void);
+void Term(void);
+int isAddop(char c);
+
+void Add(void);
+void Subtract(void);
+void Multiply(void);
+void Divide(void);
+
+// IMPLEMENTATION
+void getChar(void) { look = getchar(); }
+void Error(char *error) { printf("\nError: %s.\n", error); }
 
 void Abort(char *error) {
     Error(error);
@@ -56,31 +76,115 @@ int isDigit(char x) {
     }
 }
 
-char getname(void) {
-    if (!isAlpha(look)) {
+char getName(void) {
+    char cur = look;
+    if (!isAlpha(cur)) {
         Expected("Name");
     }
     getChar();
-    return UPCASE(look);
+    return UPCASE(cur);
 }
 
 char getNum(void) {
-    if (!isDigit(look)) {
+    char cur = look;
+    if (!isDigit(cur)) {
         Expected("Integer");
     }
-    return look;
-}
-
-void Emit(char *str) {
-    printf("%c%s", TAB, str);
-}
-
-void EmitLn(char *str) {
-    printf("%c%s\n", TAB, str);
-}
-
-void Init(void) {
     getChar();
+    return cur;
+}
+
+void Emit(char *str) { printf("%c%s", TAB, str); }
+
+void EmitLn(char *str) { printf("%c%s\n", TAB, str); }
+
+void Init(void) { getChar(); }
+
+void Term() {
+    Factor();
+    while (look == '*' || look == '/') {
+        EmitLn("MOVE D0,-(SP)");
+        switch (look) {
+            case '*':
+                Multiply();
+                break;
+            case '/':
+                Divide();
+                break;
+            default:
+                Expected("Mulop");
+                break;
+        }
+    }
+}
+
+void Expression() {
+    if (isAddop(look)) {
+        EmitLn("CLR D0");
+    } else
+        Term();
+
+    while (isAddop(look)) {
+        EmitLn("MOVE D0,-(SP)");
+        switch (look) {
+            case '+':
+                Add();
+                break;
+
+            case '-':
+                Subtract();
+                break;
+
+            default:
+                Expected("addop");
+                break;
+        }
+    }
+}
+
+void Factor() {
+    if (look == '(') {
+        Match('(');
+        Expression();
+        Match(')');
+    } else {
+        char num = getNum();
+        sprintf(output_buffer, "MOVE #%c,D0", num);
+        EmitLn(output_buffer);
+    }
+}
+
+int isAddop(char c) {
+    if (c == '+' || c == '-') {
+        return TRUE;
+    } else
+        return FALSE;
+}
+
+void Add() {
+    Match('+');
+    Term();
+    EmitLn("ADD (SP)+,D0");
+}
+
+void Subtract() {
+    Match('-');
+    Term();
+    EmitLn("SUB (SP)+,D0");
+    EmitLn("NEG D0");
+}
+
+void Multiply() {
+    Match('*');
+    Factor();
+    EmitLn("MULS (SP)+,D0");
+}
+
+void Divide() {
+    Match('/');
+    Factor();
+    EmitLn("MOVE (SP)+,D1");
+    EmitLn("DIVS D1,D0");
 }
 
 #endif /* CRADLE_H */

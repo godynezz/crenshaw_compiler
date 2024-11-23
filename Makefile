@@ -1,27 +1,18 @@
-# Template Makefile
-
-# Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Wpedantic -Werror -g
+CFLAGS = -Wall -Wextra -Wpedantic -Werror
 
-# Source and target
 SRC = main.c
-TARGET = out
-PROGRAM = main.elf
+DEFS = cradle.h
+PROGRAM = main
+OUTPUT = out
 
-# Default target to build the program
-all: $(TARGET)/$(PROGRAM)
+$(OUTPUT)/$(PROGRAM): $(SRC) $(DEFS)
+	mkdir -p $(OUTPUT)
+	$(CC) $(CFLAGS) $(SRC) -o $(OUTPUT)/$(PROGRAM)
 
-# Rule to build the executable
-$(TARGET)/$(PROGRAM): $(SRC)
-	mkdir -p $(TARGET)
-	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)/$(PROGRAM)
+run: ./$(OUTPUT)/$(PROGRAM)
+	./$(OUTPUT)/$(PROGRAM)
 
-# Run the program after building
-run: $(TARGET)/$(PROGRAM)
-	./$(TARGET)/$(PROGRAM)
-
-# Clean up
-clean:
-	rm -rf $(TARGET)
-
+.PHONY : clean
+clean :
+	rm -rf $(OUTPUT)
