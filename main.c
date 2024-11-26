@@ -1,9 +1,8 @@
-#include <stdio.h>
-
 #include "./cradle.h"
 
 int main() {
     Init();
-    Expression();
+    Assignment();
+    if(look != NEWLINE) Expected("NewLine");
     return 0;
 }

@@ -22,7 +22,7 @@ This repository contains my c implementation for [Crenshaw's compiler tutorial](
   - [ ] part 15
   - [ ] part 16
 
-- [ ] reimplement for a newer CPU architecture, maybe arm64 or x86, the simplest BTW.
+- [ ] port for a newer CPU architecture, maybe arm64 or x86, the simplest BTW.
 
 ## BUILD
 
