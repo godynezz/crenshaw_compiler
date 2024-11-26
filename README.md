@@ -7,7 +7,7 @@ This repository contains my c implementation for [Crenshaw's compiler tutorial](
 - [ ] complete the tutorial parts
   - [x] part 1
   - [x] part 2
-  - [ ] part 3
+  - [x] part 3
   - [ ] part 4
   - [ ] part 5
   - [ ] part 6
