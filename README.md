@@ -8,7 +8,7 @@ This repository contains my c implementation for [Crenshaw's compiler tutorial](
   - [x] part 1
   - [x] part 2
   - [x] part 3
-  - [ ] part 4
+  - [x] part 4
   - [ ] part 5
   - [ ] part 6
   - [ ] part 7

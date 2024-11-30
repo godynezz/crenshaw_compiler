@@ -1,8 +1,22 @@
 #include "./cradle.h"
 
 int main() {
+    // a small terminal calculator
+    // kinda feels like bc
+
     Init();
-    Assignment();
-    if(look != NEWLINE) Expected("NewLine");
+
+    while (look != '.') {
+        switch (look) {
+            case '?':
+                Input();
+            case '!':
+                Output();
+            default:
+                Assignment();
+        }
+        NewLine();
+    }
+
     return 0;
 }
