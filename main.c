@@ -10,10 +10,13 @@ int main() {
         switch (look) {
             case '?':
                 Input();
+                break;
             case '!':
                 Output();
+                break;
             default:
                 Assignment();
+                break;
         }
         NewLine();
     }
