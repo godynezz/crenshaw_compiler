@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Wpedantic -Werror
 
-SRC = main.c
+SRC = main.c cradle.c
 DEFS = cradle.h
 PROGRAM = main
 OUTPUT = out
