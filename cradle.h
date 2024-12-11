@@ -16,11 +16,12 @@
 #define UPCASE(CH) (0xDF & CH)
 
 #define BUFFER_SIZE 1024 // Arbitrarily chosen number
-#define TABLE_SIZE 26
+#define L_BUFLEN 24
 
 extern char look;
 extern char output_buffer[BUFFER_SIZE];
-extern int Table[TABLE_SIZE];
+extern char LebalName[L_BUFLEN];
+extern int LCount;
 
 // DEFINITION
 void getChar(void);
@@ -39,6 +40,8 @@ int  isAddop(char c);
 void NewLine(void);
 
 void Init(void);
-void InitTable(void);
+
+char * Newlabel (void);
+void postlabel(char * label);
 
 #endif /* CRADLE_H */

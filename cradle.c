@@ -5,7 +5,8 @@
 
 char look;
 char output_buffer[BUFFER_SIZE];
-int Table[TABLE_SIZE];
+char LebalName[L_BUFLEN];
+int LCount;
 
 void getChar(void) { look = getchar(); }
 
@@ -69,17 +70,9 @@ void Emit(char *str) { printf("%c%s", HT, str); }
 void EmitLn(char *str) { printf("%c%s\n", HT, str); }
 
 void Init(void) {
+    LCount =0;
     getChar();
-    InitTable();
 }
-
-void InitTable(void) {     
-    for (size_t i = 0; i < TABLE_SIZE; i++) {
-        Table[i] = 0;
-    }
-}
-
-
 
 void NewLine() {
     while (look == CR || look == LF)
@@ -88,3 +81,12 @@ void NewLine() {
     }
 }
 
+char * Newlabel (void){
+    sprintf(LebalName,"L%d",LCount);
+    LCount += 1;
+    return LebalName;
+}
+
+void postlabel(char * label){
+    printf("%s :\n",label);
+}
