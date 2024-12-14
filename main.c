@@ -152,7 +152,7 @@ void Dodo(){
 
     sprintf(output_buffer, "DBRA D0, %s", L1);
     EmitLn(output_buffer);
-    EmitLn('SUBQ #2,SP');
+    EmitLn("SUBQ #2,SP");
     postlabel(L2);
     EmitLn("ADDQ #2,SP");
 }
