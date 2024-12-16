@@ -31,19 +31,13 @@ void Match(char ch) {
     }
 }
 
-int isAlpha(char ch) {
-    return UPCASE(ch) >= 'A' && UPCASE(ch) <= 'Z' ? TRUE : FALSE;
-}
+int isAlpha(char ch) { return UPCASE(ch) >= 'A' && UPCASE(ch) <= 'Z'; }
 
-int isDigit(char ch) {
-    return ch >= '0' && ch <= '9' ? TRUE : FALSE;
-}
+int isDigit(char ch) { return ch >= '0' && ch <= '9'; }
 
-int isAddop(char c) {
-    return c == '+' || c == '-' ? TRUE : FALSE;
-}
+int isAddop(char ch) { return ch == '+' || ch == '-'; }
 
-int isAlNum(char c) { return (isAlpha(c) || isDigit(c)); }
+int isAlNum(char ch) { return isAlpha(ch) || isDigit(ch); }
 
 char getName(void) {
     char name;
@@ -70,23 +64,20 @@ void Emit(char *str) { printf("%c%s", HT, str); }
 void EmitLn(char *str) { printf("%c%s\n", HT, str); }
 
 void Init(void) {
-    LCount =0;
+    LCount = 0;
     getChar();
 }
 
 void NewLine() {
-    while (look == CR || look == LF)
-    {
+    while (look == CR || look == LF) {
         getChar();
     }
 }
 
-char * Newlabel (void){
-    sprintf(LebalName,"L%d",LCount);
+char *Newlabel(void) {
+    sprintf(LebalName, "L%d", LCount);
     LCount += 1;
     return LebalName;
 }
 
-void postlabel(char * label){
-    printf("%s :\n",label);
-}
+void postlabel(char *label) { printf("%s :\n", label); }

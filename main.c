@@ -168,7 +168,7 @@ void DoBreak(char * L){
 }
 
 void Block(char * L) {
-    while (look != 'e' && look != 'l' && look != 'u') {
+    while (strchr("elu", look) == NULL) {
         switch (look) {
             case 'i':
                 DoIf(L);
