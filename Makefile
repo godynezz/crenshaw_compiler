@@ -1,4 +1,4 @@
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Wextra -Wpedantic -Werror
 
 SRC = main.c cradle.c

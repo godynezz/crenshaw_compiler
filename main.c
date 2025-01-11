@@ -4,17 +4,16 @@
 void Block(char * L);
 
 
-void Other() {
-    sprintf(output_buffer, "<pseudo instruction>%c", getName());
+void Other(void) {
+    sprintf(output_buffer, "(otr:%c)", getName());
     EmitLn(output_buffer);
 }
 
-void Condition(){
+void Condition(void){
     EmitLn("<condition>");
 }
-void Expression(){
+void Expression(void){
     EmitLn("<expr>");
-
 }
 
 void DoIf(char * L) {
@@ -45,7 +44,7 @@ void DoIf(char * L) {
     postlabel(L2);
 }
 
-void DoWhile(){
+void DoWhile(void){
     Match('w');
     char L1[L_BUFLEN];
     char L2[L_BUFLEN];
@@ -65,7 +64,7 @@ void DoWhile(){
     postlabel(L2);
 }
 
-void DoLoop(){
+void DoLoop(void){
     Match('p');
     char L1[L_BUFLEN];
     char L2[L_BUFLEN];
@@ -78,7 +77,7 @@ void DoLoop(){
     postlabel(L2);
 }
 
-void DoRepeat(){
+void DoRepeat(void){
     Match('r');
     char L1[L_BUFLEN];
     char L2[L_BUFLEN];
@@ -95,7 +94,7 @@ void DoRepeat(){
     postlabel(L2);
 }
 
-void DoFor(){
+void DoFor(void){
     Match('f');
     char Name;
     char L1[L_BUFLEN];
@@ -133,7 +132,7 @@ void DoFor(){
     
 }
 
-void Dodo(){
+void Dodo(void){
     Match('d');
     
     char L1[L_BUFLEN];
@@ -205,7 +204,7 @@ void Block(char * L) {
     }
 }
 
-void DoProgram() {
+void DoProgram(void) {
     Block(NULL);
     if (look != 'e') Expected("End");
     EmitLn("END");

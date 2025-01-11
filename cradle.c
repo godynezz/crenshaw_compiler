@@ -68,7 +68,7 @@ void Init(void) {
     getChar();
 }
 
-void NewLine() {
+void NewLine(void) {
     while (look == CR || look == LF) {
         getChar();
     }
