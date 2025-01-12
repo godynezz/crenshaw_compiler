@@ -2,15 +2,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 char look;
 char output_buffer[BUFFER_SIZE];
 char LebalName[L_BUFLEN];
 int LCount;
 
-void getChar(void) { look = getchar(); }
+void getChar(void) {
+    look = getchar();
+}
 
-void Error(char *error) { printf("\nError: %s.\n", error); }
+void Error(char *error) { printf("\n\033[1;31mError:\033[0m %s.\n", error); }
 
 void Abort(char *error) {
     Error(error);
@@ -68,11 +71,6 @@ void Init(void) {
     getChar();
 }
 
-void NewLine(void) {
-    while (look == CR || look == LF) {
-        getChar();
-    }
-}
 
 char *Newlabel(void) {
     sprintf(LebalName, "L%d", LCount);
@@ -81,3 +79,23 @@ char *Newlabel(void) {
 }
 
 void postlabel(char *label) { printf("%s :\n", label); }
+
+int IsBoolean(char ch) { return !!strchr("TF", UPCASE(ch)); }
+
+int GetBoolean(void) {
+    int c = look;
+    getChar();
+    if (!IsBoolean(c)) {
+        Expected("Boolean Literal");
+    }
+    return UPCASE(c) == 'T';
+}
+
+int IsOrOp(char ch) { return !!strchr("|~", ch); }
+
+int IsRelop(char ch) { return !!strchr("=#<>", ch); }
+
+void Fin(void) {
+    if (look == '\r') getChar();
+    if (look == '\n') getChar();
+}
